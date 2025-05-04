@@ -19,7 +19,7 @@ answer = []
 
 env = gym.make('gym_cards/Points24-v0')
 
-total = 1000
+total = 10000
 
 for i in tqdm(range(total)):
     observation, info = env.reset()
@@ -28,9 +28,11 @@ for i in tqdm(range(total)):
     img.save(buffer, format="png")  # Keep the same format (e.g., JPEG, PNG)
     image_bytes = buffer.getvalue()
     images.append([image_bytes])
-    numbers.append(info['Numbers'])
-    prompt.append("")
-    answer.append(target_number)
+    numbers.append({"numbers": info['Numbers']})
+    prompt.append("<image>")
+
+    numbers_list = ','.join(map(str, info['Numbers']))
+    answer.append(numbers_list)
 
 merged_dict = {
     "numbers": numbers,
@@ -41,7 +43,7 @@ merged_dict = {
 
 ds = Dataset.from_dict(merged_dict)
 
-split_ds = ds.train_test_split(test_size=0.1, seed=492)
+split_ds = ds.train_test_split(test_size=0.2, seed=492)
 
 train_dataset = split_ds['train']
 test_dataset = split_ds['test']

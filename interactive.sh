@@ -1,0 +1,1 @@
+srun -A bbyr-dtai-gh --time=02:00:00 --nodes=1 --ntasks-per-node=1 --cpus-per-task=64 --partition=ghx4 --gpus=2 --mem=300g --pty /bin/bash

@@ -1,0 +1,1 @@
+bash examples/qwen2_5_vl_3b_gp_grpo.sh
